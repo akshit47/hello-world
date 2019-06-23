@@ -1,2 +1,5 @@
 # hello-world
-Just for testing how it can be used
+
+Hi developers and all!
+
+I am Akshit and iam a noob in web-development and github. I hope i will learn soon.
