@@ -109,7 +109,7 @@
 		
 		<div id="todos" class="container" v-for="item in list" >
 			<div id="strip"></div>
-			<input id="check" type="checkbox" v-on:change="markcomplete(item.titl,item.completed)"></input>
+			<input id="check" type="checkbox" v-on:change="item.completed=!item.completed"></input>
 			
 			<div id="right" >
 				<div id="name">
@@ -159,6 +159,18 @@
 
 			methods: {
 
+				markcomplete: function(title,comp){
+
+					console.log(title),
+					console.log(comp);
+					this.item.completed= !this.item.completed;
+					/*const index= this.list.indexOf(title);
+					console.log(index);
+					console.log(this.list[1]);*/
+					//console.log(this.item.completed);
+					//console.log(this.item);
+				},
+
 				additem: function(){
 
 					const newitem={
@@ -172,13 +184,7 @@
 					//this.$emit('add-todo',newitem);
 				},
 
-				markcomplete: function(titl,comp){
-
-					console.log(titl),
-					console.log(comp);
-					//this.item.completed=!this.item.completed,
-					//console.log(this.completed);
-				},
+				
 
 				delitem: function(item){
 					console.log(item);
