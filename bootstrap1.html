@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap</title>
+	<meta charset="utf-8">
+	<meta name="viewports" content="width=device-width, initial-scale=1, shrink-to-fit=yes" >
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<script src="https://kit.fontawesome.com/19e6047325.js"></script>
+	<script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+
+	<style >
+
+		#main {
+				position: relative;
+		top: 100px;
+		width: 40%;
+		/*border: 2px solid;*/
+		padding: 0px;
+		border-radius: 3px;
+		}
+		#con1 { /*border: 2px solid;*/
+		background: #60A3BC;
+		position: relative;
+		color:   #f0f3f4 ;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		text-align: center;
+		height: 40px; }
+		#con2 {
+			border-bottom: 1px solid silver;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		#inside {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+		#search { border: 1px solid #979a9a;
+					border-radius: 3px;
+					height: 100%;
+					width: 80%;
+					padding-left: 7px;}
+		#b1 {
+
+			height: 28px;
+			margin-bottom: 10px;
+			border: none;
+			background: #60A3BC;
+			color: #f0f3f4;
+			border-radius: 3px;
+			float: right;
+			width: 17%;
+			}
+			
+			#todos {/* border: 1px solid red;*/
+						height: 60px;
+						padding: 0px;
+						margin-top: 10px;
+						background: rgba(248,194,145,0.3);
+						border-radius: 3px; }
+			#strip	{ display: inline-block;
+						width: 5px;
+						height: 100%;
+						background:  rgba(255,4,4,0.3);
+						border-radius: 3px; }
+
+			#check {
+					display: inline-block;
+					height: 100%;
+					width: 30px;
+			}
+			#right {padding: 0px;
+					float: right;
+					width: 90%;
+					height: 100%;
+			}
+			#name { display: inline-block; }
+			#title {	font-weight: bold;
+						margin-top: 4px;
+						}
+			#time {
+				margin-top: 6px;
+				font-size: 12px;
+			}
+			#cross { display: inline-block;
+					width: 30px;
+					top: 25%;
+					position: relative;
+					float: right; }
+			.is-completed {
+				text-decoration: line-through;
+			}
+
+	</style>
+</head>
+<body>
+	<div id="main" class="container">
+		<div id="con1" class="container"><h3>Todo List</h3></div>
+		<div id="con2" class="container">
+			<div id="inside" class="container">
+				<input type="text" id="search" v-model="message" @keyup.enter="additem()" placeholder="Add todos...">
+			<button type="button" id="b1" @click="additem()" >Submit</button>
+
+			</div>
+		</div>
+		
+		<div id="todos" class="container" v-for="item in list" >
+			<div id="strip"></div>
+			<input id="check" type="checkbox" v-on:change="markcomplete(item.titl,item.completed)"></input>
+			
+			<div id="right" >
+				<div id="name">
+					<div id="title" v-bind:class="{'is-completed':item.completed}">{{item.titl}}</div>
+					<div id="time">Date</div>
+				</div>
+				<div id="cross" @click="delitem(item.titl)"><i class="fas fa-minus-circle"></i></div>
+			</div>
+		</div>
+
+
+	</div>
+	
+
+</body>
+
+	<script>
+		
+		 new Vue({
+		
+		  	el: "#main",
+			
+			data: {
+
+				message: "",
+				list: [
+
+					{
+						titl: "Physics",
+						completed: false
+					},
+
+					{
+						titl: "Math",
+						completed: true
+					},
+
+					{
+						titl: "Chemistry",
+						completed: false
+					}
+
+
+				]
+				
+			},
+
+			methods: {
+
+				additem: function(){
+
+					const newitem={
+						titl: this.message,
+						completed: false
+					}
+					//this.list.push(this.message),
+					
+					this.list.push(newitem);
+					this.message=""
+					//this.$emit('add-todo',newitem);
+				},
+
+				markcomplete: function(titl,comp){
+
+					console.log(titl),
+					console.log(comp);
+					//this.item.completed=!this.item.completed,
+					//console.log(this.completed);
+				},
+
+				delitem: function(item){
+					console.log(item);
+					//this.list.pop(item);
+
+					
+					this.list=this.list.filter(list => list.titl !==item );
+				}
+				
+			}
+
+		})
+	</script>
+
+</html>
