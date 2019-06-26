@@ -79,7 +79,8 @@
 			}
 			#name { display: inline-block; }
 			#title {	font-weight: bold;
-						margin-top: 4px;}
+						margin-top: 4px;
+						}
 			#time {
 				margin-top: 6px;
 				font-size: 12px;
@@ -89,6 +90,9 @@
 					top: 25%;
 					position: relative;
 					float: right; }
+			.is-completed {
+				text-decoration: line-through;
+			}
 
 	</style>
 </head>
@@ -103,16 +107,16 @@
 			</div>
 		</div>
 		
-		<div id="todos" class="container" v-for="item in list">
+		<div id="todos" class="container" v-for="item in list" >
 			<div id="strip"></div>
-			<input id="check" type="checkbox"></input>
+			<input id="check" type="checkbox" v-on:change="markcomplete"></input>
 			
 			<div id="right" >
 				<div id="name">
-					<div id="title">{{item}}</div>
+					<div id="title" v-bind:class="{'is-completed':item.completed}">{{item.titl}}</div>
 					<div id="time">Date</div>
 				</div>
-				<div id="cross"><i class="fas fa-minus-circle"></i></div>
+				<div id="cross" @click="delitem(item.titl)"><i class="fas fa-minus-circle"></i></div>
 			</div>
 		</div>
 
@@ -131,17 +135,55 @@
 			data: {
 
 				message: "",
-				list: ['Physics','Chemistry','Maths']
+				list: [
+
+					{
+						titl: "Physics",
+						completed: false
+					},
+
+					{
+						titl: "Math",
+						completed: true
+					},
+
+					{
+						titl: "Chemistry",
+						completed: false
+					}
+
+
+				]
 				
 			},
 
 			methods: {
 
 				additem: function(){
-					this.list.push(this.message)
+
+					const newitem={
+						titl: this.message,
+						completed: false
+					}
+					//this.list.push(this.message),
+					
+					this.list.push(newitem);
 					this.message=""
+					//this.$emit('add-todo',newitem);
+				},
+
+				markcomplete: function(){
+					this.list.completed= !this.list.completed;
+				},
+
+				delitem: function(item){
+					console.log(item);
+					this.list.pop(item);
+					//this.list=this.list.filter(list => )
 				}
+				
 			}
+
 		})
 	</script>
 
